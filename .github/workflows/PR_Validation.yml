@@ -1,0 +1,24 @@
+name: PR Validation
+
+on:
+
+  pull_request:
+    types: [edited, opened, synchronize, reopened]
+
+jobs:
+  Comment_Checks: #this will after a PR Comment edit for testing
+    runs-on: ubuntu-latest
+    name: Comment_Checks
+    steps:
+      - name: step 1.1 - Ready
+        if: ${{github.event.action != 'edited'}}
+        run: |
+          echo step 1.1 - Ready
+          echo ${{github.event.action}}
+          exit 0
+      - name: step 1.1 - Not Ready
+        if: ${{github.event.action == 'edited'}}
+        run: |
+          echo step 1.1 - Not Ready
+          echo ${{github.event.action}}
+          exit 1
